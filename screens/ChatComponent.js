@@ -1,11 +1,21 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { GiftedChat,InputToolbar } from 'react-native-gifted-chat';
+import { GiftedChat, InputToolbar,Bubble, Avatar } from 'react-native-gifted-chat';
 import { KeyboardAvoidingView, Platform } from 'react-native';
+import CustomBubble from "../components/CustomBubble";
+
 export default function Chat() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     setMessages([
+      // Initial message for space at the bottom
+      {
+        _id: 0,
+        text: '',
+        createdAt: new Date(),
+        system: true,
+      },
+      // Example message
       {
         _id: 1,
         text: 'Hello developer',
@@ -13,7 +23,6 @@ export default function Chat() {
         user: {
           _id: 2,
           name: 'React Native',
-          // Use a placeholder service for avatars
           avatar: 'https://i.pravatar.cc/250?u=mail@ashallendesign.co.uk',
         },
       },
@@ -23,40 +32,40 @@ export default function Chat() {
   const onSend = useCallback((newMessages = []) => {
     setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages));
   }, []);
-  const customtInputToolbar = props => {
-    return (
-      <InputToolbar
-        {...props}
-        containerStyle={{
-          backgroundColor: "white",
-          borderTopColor: "#E8E8E8",
-          borderTopWidth: 1,
-          padding: 8
-        }}
-      />
-    );
-  };
-  const customSystemMessage = props => {
-    return (
-      <View style={styles.ChatMessageSytemMessageContainer}>
-        <Icon name="lock" color="" size={678}  />
-        <Text style={styles.ChatMessageSystemMessageText}>
-          Your chat is secured. Remember to be cautious about what you share
-          with others.
-        </Text>
-      </View>
-    );
-  };
+
+  const renderInputToolbar = (props) => (
+    <InputToolbar
+      {...props}
+      containerStyle={{
+        backgroundColor: '#fff',
+        borderTopWidth: 0,
+        borderRadius: 20,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: Platform.OS === 'ios' ? 10 : 5, // Adjust for iOS and Android
+      }}
+    />
+  );
+
+  // Dynamically adjust the vertical offset based on the platform
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 9 : 10;
+
   return (
-    
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={Platform.OS === "ios" ? -200 : 0}
+    >
       <GiftedChat
         messages={messages}
         onSend={newMessages => onSend(newMessages)}
-        user={{
-          _id: 1,
-        }}
-        
+        user={{ _id: 1 }}
+        renderBubble={(props) => <CustomBubble {...props} />}
+        renderInputToolbar={renderInputToolbar}
+        bottomOffset={Platform.OS === "ios" ? keyboardVerticalOffset : 0}
       />
-    
+    </KeyboardAvoidingView>
   );
 }
