@@ -5,10 +5,10 @@ export default {
     slug: "my-app",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/icon.png",
-    userInterfaceStyle: "light",
+    icon: "./src/assets/icon.png",
+    userInterfaceStyle: "automatic",
     splash: {
-      image: "./assets/splash.png",
+      image: "./src/assets/splash.png",
       resizeMode: "contain",
       backgroundColor: "#ffffff",
     },
@@ -16,8 +16,13 @@ export default {
     ios: {
       supportsTablet: true,
       bundleIdentifier: "com.ie22.my-app",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "This app uses Face ID to secure your personal information."
+      },
     },
     android: {
+      package: "com.ie22.myapp",
+
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff",
@@ -35,5 +40,13 @@ export default {
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
       appID: process.env.API_ID,
     },
+    plugins: [
+      [
+        "expo-local-authentication",
+        {
+          faceIDPermission: "Allow $(PRODUCT_NAME) to use Face ID.",
+        },
+      ],
+    ],
   },
 };

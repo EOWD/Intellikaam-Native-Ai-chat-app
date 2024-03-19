@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { GiftedChat, InputToolbar,Bubble, Avatar } from 'react-native-gifted-chat';
 import { KeyboardAvoidingView, Platform } from 'react-native';
-import CustomBubble from "../components/CustomBubble";
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
@@ -40,11 +39,12 @@ export default function Chat() {
         backgroundColor: '#fff',
         borderTopWidth: 0,
         borderRadius: 20,
-        paddingHorizontal: 10,
-        paddingVertical: 8,
+        paddingHorizontal: 5,
+        paddingVertical: 5,
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: Platform.OS === 'ios' ? 10 : 5, // Adjust for iOS and Android
+        marginBottom: Platform.OS === 'ios' ? 9 : 5, // Adjust for iOS and Android
+        
       }}
     />
   );
@@ -62,7 +62,7 @@ export default function Chat() {
         messages={messages}
         onSend={newMessages => onSend(newMessages)}
         user={{ _id: 1 }}
-        renderBubble={(props) => <CustomBubble {...props} />}
+
         renderInputToolbar={renderInputToolbar}
         bottomOffset={Platform.OS === "ios" ? keyboardVerticalOffset : 0}
       />
