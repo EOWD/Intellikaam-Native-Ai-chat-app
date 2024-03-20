@@ -110,11 +110,12 @@ const Page = () => {
           <Bubble
             {...props}
             textStyle={{
-              right: { color: '#000' },
+              right: { color: '#DCDCE2' },
+              left:{color:'#DCDCE2'}
             }}
             wrapperStyle={{
-              left: { backgroundColor: '#fff' },
-              right: { backgroundColor: Colors.lightGreen },
+              left: { backgroundColor: '#3a3a3a' },
+              right: { backgroundColor: '#3a3a3a'},
             }}
           />
         )}
@@ -144,9 +145,7 @@ const Page = () => {
         renderInputToolbar={renderInputToolbar}
         renderChatFooter={() => <ReplyMessageBar clearReply={() => setReplyMessage(null)} message={replyMessage} />}
         onLongPress={(context, message) => setReplyMessage(message)}
-        renderMessage={(props) => (
-          <ChatMessageBox {...props} setReplyOnSwipeOpen={setReplyMessage} updateRowRef={updateRowRef} />
-        )}
+     
       />
       <Button title="Logout" onPress={logout} />
         
@@ -156,7 +155,7 @@ const Page = () => {
 
 const styles = StyleSheet.create({
   composer: {
-    backgroundColor: '#fff',
+    backgroundColor: '#3a3a3a',
     borderRadius: 18,
     borderWidth: 1,
     borderColor: Colors.lightGray,

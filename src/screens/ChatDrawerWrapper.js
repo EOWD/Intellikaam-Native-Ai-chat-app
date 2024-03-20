@@ -13,7 +13,7 @@ function ChatDrawerWrapper() {
       backgroundColor: 'black', // This sets the header's background color to black
     },
     headerTintColor: '#fff',  }}  name="Chat" component={Page} />
-      
+   
     </Drawer.Navigator>
   );
 }

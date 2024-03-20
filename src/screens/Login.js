@@ -5,6 +5,7 @@ import { View, TextInput, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingVi
 import { AuthContext } from '../auth/auth.context'; // Adjust the path as necessary
 import Colors from "../constants/Colors"; // Ensure you have a similar Colors module
 import LoadingAnimation from "../components/spinner/Spinner"
+import Blur from '../stylingTest/blur';
 export default function LoginScreen() {
   const navigation = useNavigation(); 
   const [email, setEmail] = useState('');
@@ -25,9 +26,10 @@ export default function LoginScreen() {
   return (
     <KeyboardAvoidingView
       keyboardVerticalOffset={keyboardVerticalOffset}
-      style={{ flex: 1 }}
+      style={{ flex: 1, }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      <Blur/>
       {loading && (
        <LoadingAnimation/>
       )}
@@ -65,7 +67,7 @@ export default function LoginScreen() {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-  <Text style={styles.signUpText}>Don't have an account? Sign Up</Text>
+  <Text style={{color:'#3a3a3a'}}>Don't have an account? Sign Up</Text>
 </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -73,12 +75,22 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
+  blackBackground: {
+    position: 'absolute', // Positions the black background absolutely within the container
+    width: '100%', // Ensures the black background covers the entire container
+    height: '100%', // Ensures the black background covers the entire container
+    backgroundColor: 'black', // Sets the background color to black
+  },
   container: {
+    
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
-    backgroundColor: Colors.background,
+    
+   // Positions the black background absolutely within the container
+  // Ensures the black background covers the entire container
+    backgroundColor: 'black',
   },
   description: {
     fontSize: 16,

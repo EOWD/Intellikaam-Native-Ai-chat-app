@@ -20,7 +20,7 @@ const LoadingAnimation = ({ message = "Loading..." }) => {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(220,220,230,0.8)",
+    backgroundColor: "rgba(220,10,10,0.8)",
     justifyContent: "center",
     alignItems: "center",
     zIndex: 10,

@@ -65,7 +65,7 @@ export default function LoginScreen() {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={{marginTop: 20,}} onPress={() => navigation.navigate('SignUpScreen')}>
-        <Text style={styles.description}>
+        <Text style={{color:'#3a3a3a'}}>
   Have an account? 
   <Text  style={{color: 'blue', fontWeight:'bold'}}  onPress={() => navigation.navigate('Login')}>
     Login
