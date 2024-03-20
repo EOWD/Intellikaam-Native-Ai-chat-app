@@ -1,8 +1,10 @@
 import React,{useContext, useState,useEffect} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Chat from './src/screens/ChatComponent'; 
+import SignUp from "./src/screens/Signup"
 import Page from "./src/screens/chat"
+import CustomDrawerContent from './src/constants/CustomDrawerContent'; // Adjust the path as necessary
+import ChatDrawerWrapper from './src/screens/ChatDrawerWrapper'
 import LoginScreen from "./src/screens/Login"
 import { AuthProvider, AuthContext }from "./src/auth/auth.context"
 const Stack = createStackNavigator(); 
@@ -21,14 +23,32 @@ function AppContent() {
   }
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: 'black', // Set your desired color
+      },
+      headerTintColor: '#fff', // Sets the color of the back button and title
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    }}>
       {userToken ? (
         // User is logged in
-        <Stack.Screen name="Chat" component={Page} />
+        <>
+        
+         <Stack.Screen name="Intellikaam" component={ChatDrawerWrapper} />
+         
+       
+        
+        </>
       ) : (
         // No user token found, user is not logged in
+        <>
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+        </>
       )}
+      
     </Stack.Navigator>
   );
 }

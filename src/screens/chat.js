@@ -29,19 +29,9 @@ const Page = () => {
   const swipeableRowRef = useRef(null);
 
   useEffect(() => {
-    async function promptBiometricAuth() {
-      const isAuthenticated = await Authenticator.unlock();
-      if (isAuthenticated) {
-        console.log('Authentication Successful');
-        // Handle authenticated scenario (e.g., navigate to a protected screen)
-      } else {
-        console.log('Authentication Failed');
-        // Handle authentication failure
-        // You might want to navigate the user away from the chat component or show a message
-      }
-    }
 
-    promptBiometricAuth();
+
+    
     setMessages([
       // Initial message for space at the bottom
       {
@@ -100,7 +90,7 @@ const Page = () => {
 
   return (
     <ImageBackground
-      source={require('../assets/images/pattern.png')}
+    
       style={{
         flex: 1,
         backgroundColor: Colors.background,

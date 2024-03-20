@@ -1,15 +1,17 @@
 import React, { useState, useContext } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 import { View, TextInput, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import { AuthContext } from '../auth/auth.context'; // Adjust the path as necessary
 import Colors from "../constants/Colors"; // Ensure you have a similar Colors module
-
+import LoadingAnimation from "../components/spinner/Spinner"
 export default function LoginScreen() {
+  const navigation = useNavigation(); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { login } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const keyboardVerticalOffset = Platform.OS === "ios" ? 90 : 0;
-
   const handleLogin = async () => {
     setLoading(true);
     // Simulate an API call for demonstration
@@ -17,7 +19,7 @@ export default function LoginScreen() {
       const fakeToken = 'dummy-auth-token'; // In reality, you would get this token from your authentication API upon successful login
       login(fakeToken);
       setLoading(false);
-    }, 2000);
+    }, 3000);
   };
 
   return (
@@ -27,10 +29,7 @@ export default function LoginScreen() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       {loading && (
-        <View style={[StyleSheet.absoluteFill, styles.loading]}>
-          <ActivityIndicator size="large" color={Colors.primary} />
-          <Text style={{ fontSize: 18, padding: 10 }}>Logging in...</Text>
-        </View>
+       <LoadingAnimation/>
       )}
 
       <View style={styles.container}>
@@ -65,6 +64,9 @@ export default function LoginScreen() {
             Log In
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+  <Text style={styles.signUpText}>Don't have an account? Sign Up</Text>
+</TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
