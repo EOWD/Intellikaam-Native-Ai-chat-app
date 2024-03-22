@@ -8,7 +8,7 @@ const Blur = () => {
       <ImageBackground
         source={{ uri: "https://cdn.midjourney.com/012c2eea-907e-4d97-b5dc-9cafef08e0bf/0_2.webp" }}
         style={styles.blurBackground}
-        blurRadius={100}
+        blurRadius={600}
         // Adjust blur radius as needed
       />
       <Text style={styles.text}  >Intellikaam</Text>

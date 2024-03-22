@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
-
 import { View, TextInput, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import { AuthContext } from '../auth/auth.context'; // Adjust the path as necessary
 import Colors from "../constants/Colors"; // Ensure you have a similar Colors module
@@ -29,6 +28,7 @@ export default function LoginScreen() {
       style={{ flex: 1, }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+   
       <Blur/>
       {loading && (
        <LoadingAnimation/>
@@ -67,7 +67,7 @@ export default function LoginScreen() {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-  <Text style={{color:'#3a3a3a'}}>Don't have an account? Sign Up</Text>
+  <Text style={{color:'#3a3a3a'}}>Don't have an account?<Text style={{color:Colors.primary}}>Sign Up</Text> </Text>
 </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    backgroundColor: Colors.lightGray,
+   borderBlockColor: Colors.primary,
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -110,10 +110,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
   },
   buttonText: {
-    color: Colors.gray,
-    fontSize: 18,
+    color: 'white',
+    fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
+   
   },
   input: {
     height: 50,
@@ -123,6 +124,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 10,
     marginBottom: 12,
+    color:'rgba(255,255,255,0.99)'
   },
   loading: {
     zIndex: 10,

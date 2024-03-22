@@ -1,22 +1,27 @@
 import React, { useState, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { View, TextInput, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
+import { AuthContext } from '../auth/auth.context';
+import Colors from "../constants/Colors";
+import LoadingAnimation from "../components/spinner/Spinner";
 
-import { View, TextInput, StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
-import { AuthContext } from '../auth/auth.context'; // Adjust the path as necessary
-import Colors from "../constants/Colors"; // Ensure you have a similar Colors module
-import LoadingAnimation from "../components/spinner/Spinner"
-export default function LoginScreen() {
+export default function SignupScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState(''); // Additional field
+  const [phoneNumber, setPhoneNumber] = useState(''); // Additional field
   const { login } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [step, setStep] = useState(1); // New state for tracking steps
   const keyboardVerticalOffset = Platform.OS === "ios" ? 90 : 0;
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     setLoading(true);
-    // Simulate an API call for demonstration
+    console.log(password,fullName,email,phoneNumber)
+    // Here, you would combine all the data (email, password, fullName, phoneNumber)
+    // and send it to your backend to create a new user account
     setTimeout(() => {
-      const fakeToken = 'dummy-auth-token'; // In reality, you would get this token from your authentication API upon successful login
+      const fakeToken = 'dummy-auth-token';
       login(fakeToken);
       setLoading(false);
     }, 3000);
@@ -28,72 +33,113 @@ export default function LoginScreen() {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      {loading && (
-       <LoadingAnimation/>
-      )}
-
+      {loading && <LoadingAnimation />}
       <View style={styles.container}>
-        <Text style={styles.description}>
-          Enter your email and password to log in.
-        </Text>
+        {step === 1 && (
+          <>
+            <Text style={styles.description}>Enter your full name</Text>
+            <TextInput
+              value={fullName}
+              placeholder="Full Name"
+              onChangeText={setFullName}
+              style={styles.input}
+              autoCapitalize="words"
+            />
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => setStep(step + 1)}
+              disabled={fullName === ""}
+            >
+              <Text style={styles.buttonText}>Next</Text>
+            </TouchableOpacity>
+          </>
+        )}
 
-        <TextInput
-          value={email}
-          keyboardType="email-address"
-          placeholder="Email address"
-          onChangeText={setEmail}
-          style={styles.input}
-          autoCapitalize="none"
-        />
-        
-        <TextInput
-          value={password}
-          secureTextEntry
-          placeholder="Password"
-          onChangeText={setPassword}
-          style={styles.input}
-          autoCapitalize="none"
-        />
+        {step === 2 && (
+          <>
+            <Text style={styles.description}>Enter your phone number</Text>
+            <TextInput
+              value={phoneNumber}
+              keyboardType="phone-pad"
+              placeholder="Phone Number"
+              onChangeText={setPhoneNumber}
+              style={styles.input}
+            />
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => setStep(step + 1)}
+              disabled={phoneNumber === ""}
+            >
+              <Text style={styles.buttonText}>Next</Text>
+            </TouchableOpacity>
+          </>
+        )}
 
-        <TouchableOpacity
-          style={[styles.button, email !== "" && password !== "" ? styles.enabled : styles.button]}
-          onPress={handleLogin}
-          disabled={loading}
-        >
-          <Text style={[styles.buttonText, email !== "" && password !== "" ? styles.enabledText : styles.buttonText]}>
-            Sign Up
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{marginTop: 20,}} onPress={() => navigation.navigate('SignUpScreen')}>
-        <Text style={{color:'#3a3a3a'}}>
-  Have an account? 
-  <Text  style={{color: 'blue', fontWeight:'bold'}}  onPress={() => navigation.navigate('Login')}>
-    Login
-  </Text>
-</Text>
-</TouchableOpacity>
+        {step === 3 && (
+          <>
+            <Text style={styles.description}>Enter your email and password</Text>
+            <TextInput
+              value={email}
+              keyboardType="email-address"
+              placeholder="Email Address"
+              onChangeText={setEmail}
+              style={styles.input}
+              autoCapitalize="none"
+            />
+            <TextInput
+              value={password}
+              secureTextEntry
+              placeholder="Password"
+              onChangeText={setPassword}
+              style={styles.input}
+              autoCapitalize="none"
+            />
+            <TouchableOpacity
+              style={[styles.button, email !== "" && password !== "" ? styles.enabled : styles.button]}
+              onPress={handleSignup}
+              disabled={loading}
+            >
+              <Text style={[styles.buttonText, email !== "" && password !== "" ? styles.enabledText : styles.buttonText]}>
+                Sign Up
+              </Text>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
     </KeyboardAvoidingView>
   );
 }
 
+
+
+
 const styles = StyleSheet.create({
+  blackBackground: {
+    position: 'absolute', // Positions the black background absolutely within the container
+    width: '100%', 
+    height: '100%', // Ensures the black background covers the entire container
+    backgroundColor: 'black', // Sets the background color to black
+  },
   container: {
+    
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
-    backgroundColor: Colors.background,
+    
+   // Positions the black background absolutely within the container
+  // Ensures the black background covers the entire container
+    backgroundColor: 'black',
   },
   description: {
-    fontSize: 15,
+    fontSize: 16,
     color: Colors.gray,
     marginBottom: 20,
     textAlign: "center",
   },
   button: {
     marginTop: 20,
-    backgroundColor: Colors.lightGray,
+   borderBlockColor: Colors.primary,
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -103,10 +149,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
   },
   buttonText: {
-    color: Colors.gray,
-    fontSize: 18,
+    color: 'white',
+    fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
+   
   },
   input: {
     height: 50,
@@ -116,6 +163,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 10,
     marginBottom: 12,
+    color:'rgba(255,255,255,0.99)'
   },
   loading: {
     zIndex: 10,

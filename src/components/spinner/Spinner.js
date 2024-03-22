@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 import Colors from "../../constants/Colors"; // Ensure you have a similar Colors module
-
+import GlowingCircle from '../../components/spinner/glow'
 const LoadingAnimation = ({ message = "Loading..." }) => {
   return (
     <View style={styles.container}>
@@ -13,6 +13,7 @@ const LoadingAnimation = ({ message = "Loading..." }) => {
         style={{ width: 300, height: 300 }} // Adjust size as needed
       />
       <Text style={styles.message}>{message}</Text>
+      <GlowingCircle></GlowingCircle>
     </View>
   );
 };
@@ -20,7 +21,7 @@ const LoadingAnimation = ({ message = "Loading..." }) => {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(220,10,10,0.8)",
+    backgroundColor: "rgba(10,10,10,0.8)",
     justifyContent: "center",
     alignItems: "center",
     zIndex: 10,

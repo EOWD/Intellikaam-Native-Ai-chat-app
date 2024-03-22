@@ -14,7 +14,7 @@
 
   
 export default {
-  primary: '#3a3a3a', // Most frequent color from the image (black)
+  primary: '#4B57E1', // Most frequent color from the image (black)
   muted: '#3a3a3a', // A slightly lighter shade of gray
   background: '#020202', // A very dark gray for the background
   gray: '#6e6e6e', // A medium gray, similar to the original

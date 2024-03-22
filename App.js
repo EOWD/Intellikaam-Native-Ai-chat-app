@@ -24,19 +24,26 @@ function AppContent() {
 
   return (
     <Stack.Navigator screenOptions={{
-      headerStyle: {
-        backgroundColor: 'black', // Set your desired color
-      },
-      headerTintColor: '#fff', // Sets the color of the back button and title
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
+        headerStyle: {
+      backgroundColor: 'black', // Set the background color for all headers
+      borderBottomWidth: 0, // Removes the border for all headers
+      shadowOpacity: 0, // Removes shadow on iOS for all headers
+      elevation: 0, // Removes shadow on Android for all headers
+    },
+    headerTintColor: '#fff', // Sets the color of the back button and title for all headers
+    headerTitleStyle: {
+      fontWeight: 'bold', // Sets the title font weight for all headers
+    },
     }}>
       {userToken ? (
         // User is logged in
         <>
         
-         <Stack.Screen name="Intellikaam" component={ChatDrawerWrapper} />
+         <Stack.Screen  name="Intellikaam" component={ChatDrawerWrapper}         screenOptions={{
+    
+          // ... other options
+        }}
+/>
          
        
         
