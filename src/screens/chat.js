@@ -67,7 +67,7 @@ const Page = () => {
       // Example message
       {
         _id: 1,
-        text: "Hello developer",
+        text: "Hi, How can i help you today? ",
         createdAt: new Date(),
         user: {
           _id: 2,

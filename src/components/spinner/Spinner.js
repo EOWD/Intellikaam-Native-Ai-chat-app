@@ -13,7 +13,6 @@ const LoadingAnimation = ({ message = "Loading..." }) => {
         style={{ width: 300, height: 300 }} // Adjust size as needed
       />
       <Text style={styles.message}>{message}</Text>
-      <GlowingCircle></GlowingCircle>
     </View>
   );
 };
